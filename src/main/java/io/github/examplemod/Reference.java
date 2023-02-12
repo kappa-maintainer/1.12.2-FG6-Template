@@ -8,7 +8,7 @@ public class Reference {
     public static final String MOD_VERSION = "@VERSION@";
     public static final String MOD_BUILD_NUMBER = "@BUILD_NUMBER@";
     public static final String MOD_CHANNEL = MOD_ID;
-    public static final String MOD_MC_VERSION = "@MC_VERSION@";
+    public static final String MOD_MC_VERSION = "1.12.2";
     public static final String MOD_FINGERPRINT = "@FINGERPRINT@";
 
     // Paths
@@ -23,8 +23,8 @@ public class Reference {
     
     // MOD ID's
     public static final String MOD_FORGE = "forge";
-    public static final String MOD_FORGE_VERSION = "@FORGE_VERSION@";
-    public static final String MOD_FORGE_VERSION_MIN = "14.23.5.2855";
+    public static final String MOD_FORGE_VERSION = "14.23.5.2860";
+    public static final String MOD_FORGE_VERSION_MIN = "14.23.5.2847";
     
     // Dependencies
     public static final String MOD_DEPENDENCIES =

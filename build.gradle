@@ -1,10 +1,12 @@
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        //classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
     }
 }
 
@@ -53,7 +55,7 @@ minecraft {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
-
+//mixin {add sourceSets.main, mod_id + "mixins.refmap.json"}
 repositories {
     maven { url = 'https://sizableshrimp.me/maven' }
 }
@@ -96,9 +98,9 @@ processResources {
         }
     }
 }
-
-def modFileTokens = [VERSION: mod_version]
-def included = ["${mod_base_package.replace('.', '/')}/${mod_main_class}.java".toString()]
+//put what you want to replace here
+def modFileTokens = [VERSION: mod_version, MODNAME: mod_name, MODID: mod_id]
+def included = ["${mod_base_package.replace('.', '/')}/Reference.java".toString()]
 
 def expandedSrc = new File(project.buildDir, 'expandedSrc')
 def srcMainJava = project.file('src/main/java').toPath()
@@ -126,6 +128,10 @@ jar {
                 'Specification-Title': mod_id,
                 'Specification-Vendor': mod_authors,
                 'Specification-Version': '1', // We are version 1 of ourselves
+                //'FMLCorePluginContainsFMLMod': true,
+                //'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                //'FMLCorePlugin': '',
+                //'ForceLoadAsMod': true
                 'Implementation-Title': project.name,
                 'Implementation-Version': mod_version,
                 'Implementation-Vendor': mod_authors,
