@@ -17,12 +17,15 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'java'
 
 version = "${minecraft_version}-${mod_version}"
 group = mod_base_package
 archivesBaseName = mod_id
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
 
@@ -57,19 +60,31 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 //mixin {add sourceSets.main, mod_id + "mixins.refmap.json"}
 repositories {
-    maven { url = 'https://sizableshrimp.me/maven' }
+    maven {
+        name 'Cleanroom Maven'
+        url 'https://maven.cleanroommc.com/'
+    }
+    maven {
+        url "https://repo.cleanroommc.com/snapshots"
+    }
+    maven {
+        url "https://maven.outlands.top/releases/"
+    }
+    maven {
+        url "https://jitpack.io/"
+    }
+    mavenCentral()
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    minecraft "com.cleanroommc:cleanroom:15.24.0.3000"
 }
-
 fancyGradle {
     patches {
         resources
-        //coremods
-        //codeChickenLib
-        //asm
+        coremods
+        codeChickenLib
+        asm
     }
 }
 
