@@ -2,18 +2,19 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public' }
+        maven { url = 'https://maven.outlands.top/releases' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.2.12', changing: true
         //classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
     }
 }
-
+/*
 plugins {
     id 'wtf.gofancy.fancygradle' version '1.+'
 }
-
+*/
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
@@ -79,6 +80,7 @@ repositories {
 dependencies {
     minecraft "com.cleanroommc:cleanroom:15.24.0.3000"
 }
+/*
 fancyGradle {
     patches {
         resources
@@ -86,7 +88,7 @@ fancyGradle {
         codeChickenLib
         asm
     }
-}
+}*/
 
 
 def resourceTargets = ['mcmod.info', 'pack.mcmeta']
