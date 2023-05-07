@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
@@ -6,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.2.12', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.2.14', changing: true
         //classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
     }
 }
@@ -76,9 +78,28 @@ repositories {
     }
     mavenCentral()
 }
+ext {
+    lwjglLibraries = [
+            [
+                    'lwjgl3-glfw', 'lwjgl3-jemalloc', 'lwjgl3-openal',
+                    'lwjgl3-opengl', 'lwjgl3-stb', 'lwjgl3-tinyfd', 'lwjgl3'
+            ],
 
+            [
+                    'natives-linux-arm64', 'natives-linux-arm32', 'natives-linux',
+                    'natives-macos-arm64', 'natives-macos',
+                    'natives-windows-arm64', 'natives-windows-x86', 'natives-windows'
+            ]
+    ]
+    lwjglArch = getCurrentArch()
+}
 dependencies {
     minecraft "com.cleanroommc:cleanroom:15.24.0.3000"
+    lwjglLibraries[0].each {
+        lwjglLibraries[1].each { arch ->
+            runtimeOnly "org.lwjgl3:$it:3.3.2-21-CLEANROOM:$lwjglArch"
+        }
+    }
 }
 /*
 fancyGradle {
@@ -169,5 +190,24 @@ publishing {
         maven {
             url "file://${project.projectDir}/mcmodsrepo"
         }
+    }
+}
+
+static def getCurrentArch() {
+    def osName = System.getProperty("os.name").toLowerCase();
+    if (osName.contains("linux")) {
+        def osArch = System.getProperty("os.arch")
+        return osArch.startsWith("arm") || osArch.startsWith("aarch64")
+                ? "natives-linux-${osArch.contains("64") || osArch.startsWith("armv8") ? "arm64" : "arm32"}"
+                : "natives-linux"
+    }
+    if (osName.contains("mac os x") || osName.contains("darwin") || osName.contains("osx")) {
+        return System.getProperty("os.arch").startsWith("aarch64") ? "natives-macos-arm64" : "natives-macos"
+    }
+    if (osName.contains("windows")) {
+        def osArch = System.getProperty("os.arch")
+        return osArch.contains("64")
+                ? "natives-windows${osArch.startsWith("aarch64") ? "-arm64" : ""}"
+                : "natives-windows-x86"
     }
 }
