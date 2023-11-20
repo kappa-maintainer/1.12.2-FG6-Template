@@ -1,4 +1,3 @@
-import org.apache.tools.ant.taskdefs.condition.Os
 
 buildscript {
     repositories {
@@ -8,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.2.14', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.99.+', changing: true
         //classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
     }
 }
@@ -94,10 +93,10 @@ ext {
     lwjglArch = getCurrentArch()
 }
 dependencies {
-    minecraft "com.cleanroommc:cleanroom:15.24.0.3000"
+    minecraft "com.cleanroommc:cleanroom:15.24.0.3007"
     lwjglLibraries[0].each {
         lwjglLibraries[1].each { arch ->
-            runtimeOnly "org.lwjgl3:$it:3.3.2-21-CLEANROOM:$lwjglArch"
+            runtimeOnly "org.lwjgl3:$it:3.3.2-22-CLEANROOM:$lwjglArch"
         }
     }
 }
