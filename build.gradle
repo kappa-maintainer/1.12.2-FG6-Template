@@ -7,15 +7,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.99.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.10.6', changing: true
         //classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
     }
 }
-/*
-plugins {
-    id 'wtf.gofancy.fancygradle' version '1.+'
-}
-*/
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
@@ -27,7 +22,7 @@ archivesBaseName = mod_id
 
 
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 minecraft {
 
@@ -72,43 +67,13 @@ repositories {
     maven {
         url "https://maven.outlands.top/releases/"
     }
-    maven {
-        url "https://jitpack.io/"
-    }
+
     mavenCentral()
 }
-ext {
-    lwjglLibraries = [
-            [
-                    'lwjgl3-glfw', 'lwjgl3-jemalloc', 'lwjgl3-openal',
-                    'lwjgl3-opengl', 'lwjgl3-stb', 'lwjgl3-tinyfd', 'lwjgl3'
-            ],
 
-            [
-                    'natives-linux-arm64', 'natives-linux-arm32', 'natives-linux',
-                    'natives-macos-arm64', 'natives-macos',
-                    'natives-windows-arm64', 'natives-windows-x86', 'natives-windows'
-            ]
-    ]
-    lwjglArch = getCurrentArch()
-}
 dependencies {
-    minecraft "com.cleanroommc:cleanroom:15.24.0.3007"
-    lwjglLibraries[0].each {
-        lwjglLibraries[1].each { arch ->
-            runtimeOnly "org.lwjgl3:$it:3.3.2-22-CLEANROOM:$lwjglArch"
-        }
-    }
+    minecraft "com.cleanroommc:cleanroom:15.24.0.3023"
 }
-/*
-fancyGradle {
-    patches {
-        resources
-        coremods
-        codeChickenLib
-        asm
-    }
-}*/
 
 
 def resourceTargets = ['mcmod.info', 'pack.mcmeta']
@@ -169,6 +134,7 @@ jar {
                 //'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
                 //'FMLCorePlugin': '',
                 //'ForceLoadAsMod': true
+                //'FMLAT': '',
                 'Implementation-Title': project.name,
                 'Implementation-Version': mod_version,
                 'Implementation-Vendor': mod_authors,
@@ -189,24 +155,5 @@ publishing {
         maven {
             url "file://${project.projectDir}/mcmodsrepo"
         }
-    }
-}
-
-static def getCurrentArch() {
-    def osName = System.getProperty("os.name").toLowerCase();
-    if (osName.contains("linux")) {
-        def osArch = System.getProperty("os.arch")
-        return osArch.startsWith("arm") || osArch.startsWith("aarch64")
-                ? "natives-linux-${osArch.contains("64") || osArch.startsWith("armv8") ? "arm64" : "arm32"}"
-                : "natives-linux"
-    }
-    if (osName.contains("mac os x") || osName.contains("darwin") || osName.contains("osx")) {
-        return System.getProperty("os.arch").startsWith("aarch64") ? "natives-macos-arm64" : "natives-macos"
-    }
-    if (osName.contains("windows")) {
-        def osArch = System.getProperty("os.arch")
-        return osArch.contains("64")
-                ? "natives-windows${osArch.startsWith("aarch64") ? "-arm64" : ""}"
-                : "natives-windows-x86"
     }
 }
