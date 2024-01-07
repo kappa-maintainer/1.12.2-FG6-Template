@@ -65,7 +65,7 @@ minecraft {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
-//mixin {add sourceSets.main, mod_id + "mixins.refmap.json"}
+//mixin {add sourceSets.main, mod_id + ".mixins.refmap.json"}
 repositories {
     maven {
         name 'Cleanroom Maven'
@@ -83,6 +83,13 @@ repositories {
 
 dependencies {
     minecraft "com.cleanroommc:cleanroom:15.24.0.3023"
+    /*
+    annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
+    annotationProcessor 'com.google.guava:guava:33.0.0-jre'
+    annotationProcessor 'com.google.code.gson:gson:2.10.1'
+
+    annotationProcessor ('com.cleanroommc:sponge-mixin:0.15.3+mixin.0.8.5')
+     */
 }
 processResources {
     blossom {
