@@ -89,7 +89,7 @@ dependencies {
     annotationProcessor 'com.google.code.gson:gson:2.10.1'
 
     annotationProcessor ('com.cleanroommc:sponge-mixin:0.15.3+mixin.0.8.5')
-     */
+    */
 }
 processResources {
     blossom {
@@ -106,7 +106,7 @@ processResources {
 }
 
 blossom {
-    String reference = "src/main/java/com/cleanroommc/Reference.java"
+    String reference = "src/main/java/" + mod_base_package.replace('.', '/') + "/Reference.java"
     replaceToken("@VERSION@", mod_version, reference)
     replaceToken("@MODNAME@", mod_name, reference)
     replaceToken("@MODID@", mod_id, reference)
