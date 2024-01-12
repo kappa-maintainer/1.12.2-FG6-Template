@@ -3,13 +3,13 @@ package io.github.examplemod;
 public class Reference {
 	
     // Mod info
-	public static final String MOD_NAME = "@MODNAME@";
-    public static final String MOD_ID = "@MODID@";
-    public static final String MOD_VERSION = "@VERSION@";
-    public static final String MOD_BUILD_NUMBER = "@BUILD_NUMBER@";
+	public static final String MOD_NAME = "{{ MODNAME }}";
+    public static final String MOD_ID = "{{ MODID }}";
+    public static final String MOD_VERSION = "{{ VERSION }}";
+    public static final String MOD_BUILD_NUMBER = "{{ BUILD_NUMBER }}";
     public static final String MOD_CHANNEL = MOD_ID;
     public static final String MOD_MC_VERSION = "1.12.2";
-    public static final String MOD_FINGERPRINT = "@FINGERPRINT@";
+    public static final String MOD_FINGERPRINT = "{{ FINGERPRINT }}";
 
     // Paths
     public static final String TEXTURE_PATH_GUI = "textures/gui/";

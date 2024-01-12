@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.10.+', changing: true
-        classpath "cl.franciscosolis:blossom:1.3.1"
+        classpath "net.kyori:blossom:2.1.0"
         //classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
     }
 }
@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
-apply plugin: 'cl.franciscosolis.blossom-extended'
+apply plugin: 'net.kyori.blossom'
 //apply plugin: 'org.spongepowered.mixin'
 
 version = "${minecraft_version}-${mod_version}"
@@ -64,7 +64,29 @@ minecraft {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+        blossom {
+            resources {
+                property("mod_id", mod_id)
+                property("mod_name", mod_name)
+                property("mod_description", mod_description)
+                property("mod_version", mod_version)
+                property("mod_authors", mod_authors)
+                property("minecraft_version", minecraft_version)
+            }
+            javaSources {
+                property("MODNAME", mod_name)
+                property("MODID", mod_id)
+                property("VERSION", version)
+            }
+        }
+    }
+}
+
 //mixin {add sourceSets.main, mod_id + ".mixins.refmap.json"}
 repositories {
     maven {
@@ -82,7 +104,7 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.cleanroommc:cleanroom:15.24.0.3023"
+    minecraft "com.cleanroommc:cleanroom:15.24.0.3025"
     /*
     annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
     annotationProcessor 'com.google.guava:guava:33.0.0-jre'
@@ -91,26 +113,7 @@ dependencies {
     annotationProcessor ('com.cleanroommc:sponge-mixin:0.15.3+mixin.0.8.5')
     */
 }
-processResources {
-    blossom {
-        String mcmod = "src/main/resources/mcmod.info"
-        String mcmeta = "src/main/resources/pack.mcmeta"
-        replaceToken("mod_id", mod_id, mcmod)
-        replaceToken("mod_name", mod_name, mcmod)
-        replaceToken("mod_description", mod_description, mcmod)
-        replaceToken("mod_version", mod_version, mcmod)
-        replaceToken("mod_authors", mod_authors, mcmod)
-        replaceToken("minecraft_version", minecraft_version, mcmod)
-        replaceToken("mod_id", mod_id, mcmeta)
-    }
-}
 
-blossom {
-    String reference = "src/main/java/" + mod_base_package.replace('.', '/') + "/Reference.java"
-    replaceToken("@VERSION@", mod_version, reference)
-    replaceToken("@MODNAME@", mod_name, reference)
-    replaceToken("@MODID@", mod_id, reference)
-}
 
 jar {
     manifest {
