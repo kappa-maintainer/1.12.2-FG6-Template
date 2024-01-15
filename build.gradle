@@ -104,10 +104,8 @@ repositories {
 
 dependencies {
     minecraft "com.cleanroommc:cleanroom:${cleanroom_version}"
-    // Use this if you want regular Forge
-    //minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     /*
-    annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
+    annotationProcessor 'org.ow2.asm:asm:9.6'
     annotationProcessor 'com.google.guava:guava:33.0.0-jre'
     annotationProcessor 'com.google.code.gson:gson:2.10.1'
 
