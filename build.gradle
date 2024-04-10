@@ -109,7 +109,7 @@ dependencies {
     annotationProcessor 'com.google.guava:guava:33.0.0-jre'
     annotationProcessor 'com.google.code.gson:gson:2.10.1'
 
-    annotationProcessor ('com.cleanroommc:sponge-mixin:0.16.0+mixin.0.8.5')
+    annotationProcessor ('com.cleanroommc:sponge-mixin:0.18.5+mixin.0.8.5')
     */
 }
 
