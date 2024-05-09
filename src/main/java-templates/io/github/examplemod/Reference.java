@@ -25,8 +25,10 @@ public class Reference {
     public static final String MOD_FORGE = "forge";
     public static final String MOD_FORGE_VERSION = "14.23.5.2860";
     public static final String MOD_FORGE_VERSION_MIN = "14.23.5.2847";
+    public static final String MOD_CLEANROOM = "cleanroom";
+    public static final String MOD_CLEANROOM_VERSION = "{{ CLEANROOM_VERSION }}";
     
     // Dependencies
     public static final String MOD_DEPENDENCIES =
-            "required-after:" + MOD_FORGE + "@[" + MOD_FORGE_VERSION_MIN + ",);";
+            "required-after:" + MOD_FORGE + "@[" + MOD_FORGE_VERSION_MIN + ",);required-after:" + MOD_CLEANROOM + "@[" + MOD_CLEANROOM_VERSION + ",);";
 }

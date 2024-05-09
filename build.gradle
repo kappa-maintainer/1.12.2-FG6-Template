@@ -81,6 +81,7 @@ sourceSets {
                 property("MODNAME", mod_name)
                 property("MODID", mod_id)
                 property("VERSION", version)
+                property("CLEANROOM_VERSION", cleanroom_version)
             }
         }
     }
